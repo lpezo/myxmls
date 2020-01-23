@@ -1,0 +1,10 @@
+{
+    "name": "myxmls",
+    "version": "1.0.0",
+    "description": "myxmls application package",
+    "license": "SEE LICENSE IN LICENSE",
+    "author": "Luis Pezo",
+    "scripts": {
+    }
+  }
+  
