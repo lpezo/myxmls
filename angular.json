@@ -25,10 +25,11 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              "src/employeeData.json"
+              "src/assets/proyData.json"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": []
           },

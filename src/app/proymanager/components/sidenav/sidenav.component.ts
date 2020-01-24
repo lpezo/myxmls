@@ -3,6 +3,7 @@ import { ProyService } from '../../services/proy.service';
 import { Observable } from 'rxjs';
 import { Proy } from '../../models/proy';
 import { Router } from '@angular/router';
+import { AuthenticationService } from '../../../loginmanager/services';
 
 const SMALL_WIDTH_BREAKPOINT = 720;
 
@@ -16,7 +17,7 @@ export class SidenavComponent implements OnInit {
   proys: Observable<Proy[]>;
   isIndigoTheme: boolean = false;
   dir: string = 'ltr';
-  constructor(zone: NgZone, private proyService: ProyService, private router: Router) {
+  constructor(zone: NgZone, private proyService: ProyService, private router: Router, private authenticationService: AuthenticationService) {
     this.mediaMatcher.addListener(mql =>
       zone.run(() => this.mediaMatcher = matchMedia(`(max-width: ${SMALL_WIDTH_BREAKPOINT}px)`)));
    }
@@ -33,4 +34,8 @@ export class SidenavComponent implements OnInit {
     this.dir = this.dir == 'ltr' ? 'rtl' : 'ltr';
   }
 
+  logout() {
+    this.authenticationService.logout();
+    this.router.navigate(['/login']);
+}
   }

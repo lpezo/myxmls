@@ -10,6 +10,9 @@
       <mat-list-item>
           <a matLine [routerLink]="['/proymanager']"> <mat-icon>home</mat-icon> Home </a>
       </mat-list-item>
+      <mat-list-item>
+        <a matLine (click)="logout()"> <mat-icon>exit_to_app</mat-icon> Salir </a>
+      </mat-list-item>
     </mat-nav-list>
     <div class="copyright-container">
       <a href="#" target="_blank"><span>Copyright &copy; Luis Pezo </span></a>
