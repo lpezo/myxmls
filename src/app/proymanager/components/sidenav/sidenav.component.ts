@@ -17,13 +17,15 @@ export class SidenavComponent implements OnInit {
   proys: Observable<Proy[]>;
   isIndigoTheme: boolean = false;
   dir: string = 'ltr';
+  user: Object;
+
   constructor(zone: NgZone, private proyService: ProyService, private router: Router, private authenticationService: AuthenticationService) {
     this.mediaMatcher.addListener(mql =>
       zone.run(() => this.mediaMatcher = matchMedia(`(max-width: ${SMALL_WIDTH_BREAKPOINT}px)`)));
    }
 
   ngOnInit() {
-    
+    this.user = JSON.parse(localStorage.getItem('currentUser'))
   }
 
   isScreenSmall(): boolean{

@@ -33,13 +33,13 @@ export class MainContentComponent implements OnInit {
     this.router.navigate(['proymanager', proy.id]);
   }
   
-  openProyectoDialog(index:number,{ id, _id, name}:Proy){
+  openProyectoDialog(index:number,{_id, name}:Proy){
     const dialogConfig = new MatDialogConfig();
 
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = "450px";
-    dialogConfig.data= {id, _id, name};
+    dialogConfig.data= {_id, name, index};
     const dialogRef = this.dialog.open(EditProyectoDialogComponent,dialogConfig);
     dialogRef.afterClosed().subscribe(
       val => console.log("Dialog output:", val)

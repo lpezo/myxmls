@@ -29,7 +29,7 @@ export class ProyService {
 
  
   getJSON() {
-    return this.http.post<Proy[]>('proy/list', {})
+    return this.http.post<Proy[]>('proy/list', {user: localStorage.getItem('idUser')})
     .subscribe(data =>{
           this.dataStore.proysSet = data;
           this._proysSet.next(Object.assign({}, this.dataStore).proysSet);
@@ -38,18 +38,23 @@ export class ProyService {
       });
   }
 
-proyById(id : number){
-  return this.dataStore.proysSet.find(x=>x.id == id);
+proyById(_id : string){
+  return this.dataStore.proysSet.find(x=>x._id == _id);
+}
+
+indexById(_id: string)
+{
+  return this.dataStore.proysSet.findIndex(x=>x._id == _id);
 }
 
   addProy(proy:Proy): Promise<Proy>{
     return new Promise((resolver,reject) =>{
-      let currentuser = JSON.parse(localStorage.getItem('currentUser'));
+      //let currentuser = JSON.parse(localStorage.getItem('currentUser'));
       proy.id = this.dataStore.proysSet.length + 1;
-      proy.user = currentuser._id;
+      proy.user = localStorage.getItem('idUser');
       this.http.post<Proy>(`proy/add`, proy).subscribe({
         next: data => {
-          this.dataStore.proysSet.push(data);
+          this.dataStore.proysSet.splice(0, 0, data);
           this._proysSet.next(Object.assign({}, this.dataStore).proysSet);
           resolver(data);
         },

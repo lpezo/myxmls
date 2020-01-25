@@ -25,6 +25,7 @@ export class AuthenticationService {
                 if (user && user.token) {
                     // store user details in local storage to keep user logged in
                     localStorage.setItem('currentUser', JSON.stringify(user.result));
+                    localStorage.setItem('idUser', user.result._id);
                     this.currentUserSubject.next(user);
                 }
 
@@ -35,6 +36,7 @@ export class AuthenticationService {
     logout() {
         // remove user data from local storage for log out
         localStorage.removeItem('currentUser');
+        localStorage.removeItem('idUser');
         this.currentUserSubject.next(null);
     }
 }

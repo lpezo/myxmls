@@ -15,12 +15,13 @@ export class EditProyectoDialogComponent implements OnInit {
   constructor(private fb: FormBuilder,
     private dialogRef: MatDialogRef<EditProyectoDialogComponent>,
     private proyectoService: ProyService,
-    @Inject(MAT_DIALOG_DATA) { id, _id, name }) { 
+    @Inject(MAT_DIALOG_DATA) { id, _id, name, index }) { 
       
       this.form = fb.group({
         id: [id],
         _id: [_id],
-        name: [name]
+        name: [name],
+        index: [index]
       });
     }
 
