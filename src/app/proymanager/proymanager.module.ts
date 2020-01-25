@@ -14,12 +14,16 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { ProymanagerRoutingModule } from './proymanager-routing.module';
 import { ProymanagerComponent } from './proymanager.component';
 
+import { NewProyectoDialogComponent } from './components/new-proyecto-dialog/new-proyecto-dialog.component';
+import { EditProyectoDialogComponent } from './components/edit-proyecto-dialog/edit-proyecto-dialog.component';
 
 @NgModule({
   declarations: [ProymanagerComponent,
     ToolbarComponent,
     MainContentComponent,
-    SidenavComponent
+    SidenavComponent,
+    NewProyectoDialogComponent,
+    EditProyectoDialogComponent
   ],
   imports: [
     CommonModule,
@@ -28,6 +32,7 @@ import { ProymanagerComponent } from './proymanager.component';
     HttpClientModule,
     FlexLayoutModule,
     ProymanagerRoutingModule
-  ]
+  ],
+  entryComponents: [NewProyectoDialogComponent, EditProyectoDialogComponent]
 })
 export class ProymanagerModule { }

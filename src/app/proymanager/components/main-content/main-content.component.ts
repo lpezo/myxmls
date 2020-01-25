@@ -4,7 +4,7 @@ import { Proy } from '../../models/proy';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatDialog, MatSnackBarRef, SimpleSnackBar, MatSnackBar, MatDialogConfig } from '@angular/material';
 import { ProyService } from '../../services/proy.service';
-
+import { EditProyectoDialogComponent } from '../edit-proyecto-dialog/edit-proyecto-dialog.component';
 
 @Component({
   selector: 'app-main-content',
@@ -32,27 +32,32 @@ export class MainContentComponent implements OnInit {
     console.log(proy);
     this.router.navigate(['proymanager', proy.id]);
   }
-  /*
-  openEmployeeDialog(index:number,{ id, avatar, name, birthDate, bio}:Employee){
+  
+  openProyectoDialog(index:number,{ id, _id, name}:Proy){
     const dialogConfig = new MatDialogConfig();
 
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = "450px";
-    dialogConfig.data= {id, avatar, name, birthDate, bio, index};
-    const dialogRef = this.dialog.open(EditEmployeeDialogComponent,dialogConfig);
+    dialogConfig.data= {id, _id, name};
+    const dialogRef = this.dialog.open(EditProyectoDialogComponent,dialogConfig);
     dialogRef.afterClosed().subscribe(
       val => console.log("Dialog output:", val)
   );
 }
-*/
+
   openSnackBar(message: string, action: string) : MatSnackBarRef<SimpleSnackBar> {
     return this.snackBar.open(message, action, {
        duration: 2000,
      });
    }
    
-   deleteItem(i:number){
-    //this.proyService.deleteEmployee(i);
+   deleteItem(i:number, _id:string){
+     if (confirm('Esta seguro de eliminar?'))
+      this.proyService.deleteProy(i, _id);
+   }
+
+   alerta(mensaje) {
+     alert(mensaje);
    }
 }
