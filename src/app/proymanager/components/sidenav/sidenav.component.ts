@@ -2,6 +2,7 @@ import { Component, OnInit, NgZone } from '@angular/core';
 import { ProyService } from '../../services/proy.service';
 import { Observable } from 'rxjs';
 import { Proy } from '../../models/proy';
+import { User } from '../../../loginmanager/models/user';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../../loginmanager/services';
 
@@ -17,7 +18,7 @@ export class SidenavComponent implements OnInit {
   proys: Observable<Proy[]>;
   isIndigoTheme: boolean = false;
   dir: string = 'ltr';
-  user: Object;
+  user: User;
 
   constructor(zone: NgZone, private proyService: ProyService, private router: Router, private authenticationService: AuthenticationService) {
     this.mediaMatcher.addListener(mql =>
@@ -25,7 +26,7 @@ export class SidenavComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.user = JSON.parse(localStorage.getItem('currentUser'))
+    this.user = JSON.parse(localStorage.getItem('currentUser')) as User;
   }
 
   isScreenSmall(): boolean{
