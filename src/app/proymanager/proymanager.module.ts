@@ -17,13 +17,17 @@ import { ProymanagerComponent } from './proymanager.component';
 import { NewProyectoDialogComponent } from './components/new-proyecto-dialog/new-proyecto-dialog.component';
 import { EditProyectoDialogComponent } from './components/edit-proyecto-dialog/edit-proyecto-dialog.component';
 
+import { MatFileUploadModule } from 'angular-material-fileupload';
+import { UploadFilesComponent } from './components/upload-files/upload-files.component';
+
 @NgModule({
   declarations: [ProymanagerComponent,
     ToolbarComponent,
     MainContentComponent,
     SidenavComponent,
     NewProyectoDialogComponent,
-    EditProyectoDialogComponent
+    EditProyectoDialogComponent,
+    UploadFilesComponent
   ],
   imports: [
     CommonModule,
@@ -31,7 +35,8 @@ import { EditProyectoDialogComponent } from './components/edit-proyecto-dialog/e
     FormsModule, ReactiveFormsModule,
     HttpClientModule,
     FlexLayoutModule,
-    ProymanagerRoutingModule
+    ProymanagerRoutingModule,
+    MatFileUploadModule
   ],
   entryComponents: [NewProyectoDialogComponent, EditProyectoDialogComponent]
 })

@@ -6,11 +6,11 @@ import { LoginComponent } from './loginmanager/login/login.component';
 import { RegisterComponent } from './loginmanager/register/register.component';
 
 const routes: Routes = [
-  { path:'proymanager', loadChildren:'./proymanager/proymanager.module#ProymanagerModule', canActivate: [AuthGuard]},
+  { path:'proyecto', loadChildren:'./proymanager/proymanager.module#ProymanagerModule', canActivate: [AuthGuard]},
   { path:'demo', loadChildren:'./demo/demo.module#DemoModule'},
   { path: 'login', component: LoginComponent},
   { path: 'register', component: RegisterComponent },
-  { path: '**', redirectTo: 'proymanager'}
+  { path: '**', redirectTo: 'proyecto'}
 ];
 
 @NgModule({

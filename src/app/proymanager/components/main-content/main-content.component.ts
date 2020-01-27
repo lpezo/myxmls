@@ -29,8 +29,8 @@ export class MainContentComponent implements OnInit {
   }
 
   __cardClick(proy){
-    console.log(proy);
-    this.router.navigate(['proymanager', proy.id]);
+    console.log("cardclick()",  proy);
+    this.router.navigate(['proyecto', proy._id]);
   }
   
   openProyectoDialog(index:number,{_id, name}:Proy){
@@ -57,7 +57,4 @@ export class MainContentComponent implements OnInit {
       this.proyService.deleteProy(i, _id);
    }
 
-   alerta(mensaje) {
-     alert(mensaje);
-   }
 }

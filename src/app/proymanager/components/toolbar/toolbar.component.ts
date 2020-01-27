@@ -30,7 +30,7 @@ export class ToolbarComponent implements OnInit {
         this.openSnackBar("Proyecto agregado", "Navigate")
         .onAction().subscribe(()=>{
           //navigate
-          this.router.navigate(['/proymanager']);
+          this.router.navigate(['/proyecto']);
         });
       }
     });

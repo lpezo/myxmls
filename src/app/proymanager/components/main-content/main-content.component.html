@@ -12,7 +12,7 @@
       </mat-card-title>
       <mat-card-subtitle>{{ proy.created }}</mat-card-subtitle>
       <div fxFlex></div>
-      <button mat-button (click)="alerta('hacer algo')"> <mat-icon>beenhere</mat-icon></button>
+      <button mat-button (click)="__cardClick(proy)"> <mat-icon>beenhere</mat-icon></button>
       <button mat-button color="primary" (click)="openProyectoDialog(i, proy)" ><mat-icon>edit</mat-icon></button>
      <button mat-button (click)="deleteItem(i, proy._id)"><mat-icon>delete</mat-icon></button>
       </mat-card-header>
