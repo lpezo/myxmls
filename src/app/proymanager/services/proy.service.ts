@@ -87,4 +87,20 @@ indexById(_id: string)
   sendFile(data: any){
     return this.http.post('proy/send', data);
   }
+
+  refresh(proy: Proy) : Promise<Proy> {
+    return new Promise((resolve,reject) => {
+      this.http.post('proy/refresh/' + proy._id, {}).subscribe({
+        next: data => resolve(data as Proy),
+        error: error => reject(error)
+      })
+    })
+  }
+
+  refreshIndice(index:number, proy:Proy){
+    this.refresh(proy).then(data=>{
+      this.dataStore.proysSet[index] = data
+    })
+  }
+
 }

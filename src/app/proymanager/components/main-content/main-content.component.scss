@@ -17,6 +17,13 @@ mat-card {
     cursor: pointer;
     padding: 16px;
     border-left: 2px solid transparent;
+
+}
+
+mat-card-subtitle {
+    span {
+        padding-left: 10px;
+    }
 }
 
 kexpense-search-input {

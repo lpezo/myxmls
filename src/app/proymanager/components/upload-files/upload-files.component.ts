@@ -83,11 +83,13 @@ export class UploadFilesComponent implements OnInit {
   uploadFilesSimulator(index: number) {
       if (index === this.files.length) {
         this.proyecto.progress = 100;
+        this.refrescar();
         return;
       } 
       else if (this.cancelar) {
         this.openSnackBar("Cancelado por usuario", "Mensaje")
         .onAction().subscribe(()=>{
+          this.refrescar();
           return;
         });
       }
@@ -104,6 +106,13 @@ export class UploadFilesComponent implements OnInit {
         })
       }
   }
+
+refrescar(){
+  this.proyectoService.refresh(this.proyecto).then(data=>{
+    console.log('data:', data);
+    this.proyecto.total = data.total;
+  })
+}
 
   sendFile(file:any): Promise<FormGroup> {
     return new Promise((resolver,reject)  =>{

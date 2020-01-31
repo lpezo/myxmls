@@ -57,4 +57,8 @@ export class MainContentComponent implements OnInit {
       this.proyService.deleteProy(i, _id);
    }
 
+   refresh(i:number, proy:Proy){
+     this.proyService.refreshIndice(i, proy);
+   }
+
 }

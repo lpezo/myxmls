@@ -6,4 +6,5 @@ export class Proy {
     status: string;
     user: string;
     progress: number;
+    total: number
 }

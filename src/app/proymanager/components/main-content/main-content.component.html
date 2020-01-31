@@ -6,13 +6,13 @@
     <mat-card-header>
       <!-- <div mat-card-avatar><mat-icon>person</mat-icon></div> -->
       <mat-card-title>
-        
         <mat-icon >folder_open</mat-icon> {{ proy.name }}
-        
       </mat-card-title>
-      <mat-card-subtitle>{{ proy.created }}</mat-card-subtitle>
+      <mat-card-subtitle><span>{{ proy.created | date:'d/M/yyyy'}}</span><span>Archivos: {{ proy.total }}</span></mat-card-subtitle>
+
       <div fxFlex></div>
-      <button mat-button (click)="__cardClick(proy)"> <mat-icon>beenhere</mat-icon></button>
+      <button mat-button (click)="__cardClick(proy)"> <mat-icon>cloud_upload</mat-icon></button>
+      <button mat-button (click)="refresh(i, proy)"> <mat-icon>cached</mat-icon></button>
       <button mat-button color="primary" (click)="openProyectoDialog(i, proy)" ><mat-icon>edit</mat-icon></button>
      <button mat-button (click)="deleteItem(i, proy._id)"><mat-icon>delete</mat-icon></button>
       </mat-card-header>
