@@ -5,4 +5,5 @@ export class Proy {
     created: Date;
     status: string;
     user: string;
+    progress: number;
 }

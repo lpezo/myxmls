@@ -20,6 +20,9 @@ import { EditProyectoDialogComponent } from './components/edit-proyecto-dialog/e
 import { MatFileUploadModule } from 'angular-material-fileupload';
 import { UploadFilesComponent } from './components/upload-files/upload-files.component';
 
+import { DndDirective } from '../directives/dnd.directive';
+import { ProgressComponent } from './components/progress/progress.component';
+
 @NgModule({
   declarations: [ProymanagerComponent,
     ToolbarComponent,
@@ -27,7 +30,9 @@ import { UploadFilesComponent } from './components/upload-files/upload-files.com
     SidenavComponent,
     NewProyectoDialogComponent,
     EditProyectoDialogComponent,
-    UploadFilesComponent
+    UploadFilesComponent,
+    DndDirective,
+    ProgressComponent
   ],
   imports: [
     CommonModule,

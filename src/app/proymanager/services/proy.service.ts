@@ -83,4 +83,8 @@ indexById(_id: string)
       next: data => this.dataStore.proysSet.splice(index,1),
     })
   }
+
+  sendFile(data: any){
+    return this.http.post('proy/send', data);
+  }
 }

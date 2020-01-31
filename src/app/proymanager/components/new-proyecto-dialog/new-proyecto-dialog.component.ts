@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 import { Proy } from '../../models/proy';
-import { FormControl, Validators } from '@angular/forms';
 import { ProyService } from '../../services/proy.service';
 
 @Component({

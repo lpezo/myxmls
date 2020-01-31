@@ -1,12 +1,18 @@
-<h2>Proyecto - {{proyecto.name}}</h2>
+<h2 style="text-align: center;">Proyecto - {{proyecto.name}}</h2>
 
-<label for="singleFile">Upload file</label>
-<input id="singleFile" type="file" [fileUploadInputFor]= "fileUploadQueue"/>
-<br>
+<div class="container" appDnd (fileDropped)="onFileDropped($event)">
+    <input type="file" #fileDropRef id="fileDropRef" multiple (change)="fileBrowseHandler($event.target.files)" />
+    <img src="assets/upload_cloud.png" alt="">
+    <h3>Arrastre y suelte archivos aquí</h3>
+</div>
 
-<mat-file-upload-queue #fileUploadQueue
-    [fileAlias]="'file'"
-    [httpUrl]="'http://localhost:8180/jax-rs-jersey-application-sample'">
-
-    <mat-file-upload [file]="file" [id]="i" *ngFor="let file of fileUploadQueue.files; let i = index"></mat-file-upload>
-</mat-file-upload-queue>
+<div class="files-list">
+<div class="single-file">
+    <div class="info">
+        <app-progress [progress]="proyecto?.progress"></app-progress>
+    </div>
+    <button mat-button (click)="cancel()">
+        Cancelar<mat-icon>cancel</mat-icon>
+    </button>
+</div>
+</div>
