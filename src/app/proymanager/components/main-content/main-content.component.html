@@ -8,13 +8,23 @@
       <mat-card-title>
         <mat-icon >folder_open</mat-icon> {{ proy.name }}
       </mat-card-title>
-      <mat-card-subtitle><span>{{ proy.created | date:'d/M/yyyy'}}</span><span>Archivos: {{ proy.total }}</span></mat-card-subtitle>
+      <mat-card-subtitle><span>{{ proy.created | date:'d/M/yyyy'}}</span>
+        <span class="btn" [ngClass]="{
+          'btn-light':proy.status=='ok',
+          'btn-primary':proy.status='proc',
+          'btn-warning':proy.status='ver',
+          'btn-danger':proy.status='fin'
+          }" style="width:80px;">{{proy.estado}}</span>
+          <span> Archivos: {{ proy.total }}</span>
+      </mat-card-subtitle>
 
       <div fxFlex></div>
-      <button mat-button (click)="__cardClick(proy)"> <mat-icon>cloud_upload</mat-icon></button>
+      <button mat-button *ngIf="proy.status=='ok' || proy.status=='fin'" (click)="__cardClick(proy)"> <mat-icon>cloud_upload</mat-icon></button>
       <button mat-button (click)="refresh(i, proy)"> <mat-icon>cached</mat-icon></button>
       <button mat-button color="primary" (click)="openProyectoDialog(i, proy)" ><mat-icon>edit</mat-icon></button>
-     <button mat-button (click)="deleteItem(i, proy._id)"><mat-icon>delete</mat-icon></button>
+      <button mat-button *ngIf="proy.status=='ok'" (click)="deleteItem(i, proy._id)"><mat-icon>delete</mat-icon></button>
+      <button mat-button *ngIf="proy.status=='ok' || proy.status=='fin'" (click)="procesa(proy._id)"><mat-icon>directions_run</mat-icon></button>
+      <button mat-button *ngIf="proy.excel" (click)="getexcel(proy._id)" title="excel"><mat-icon>clod_download</mat-icon></button>
       </mat-card-header>
     <hr>
   </mat-card>

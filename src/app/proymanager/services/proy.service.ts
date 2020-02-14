@@ -31,11 +31,23 @@ export class ProyService {
   getJSON() {
     return this.http.post<Proy[]>('proy/list', {user: localStorage.getItem('idUser')})
     .subscribe(data =>{
+          for (let item of data){
+            this.agregacampos(item);
+          }
           this.dataStore.proysSet = data;
           this._proysSet.next(Object.assign({}, this.dataStore).proysSet);
       }), catchError(error => {
           return throwError('Unable to fetch proys set!');
       });
+  }
+
+  agregacampos(item:Proy){
+    if (item.status == 'proc')
+      item.estado = 'procesando';
+    else if (item.status == 'ver')
+      item.estado = 'verificando';
+    else
+      item.estado = item.status
   }
 
 proyById(_id : string){
@@ -65,11 +77,12 @@ indexById(_id: string)
 
   update(index:number, proy: Proy): Promise<Proy> {
     return new Promise((resolver,reject) =>{
-          this.http.put(`proy/upd`, proy).subscribe({
+          this.http.put<Proy>(`proy/upd`, proy).subscribe({
             next: data => {
-              this.dataStore.proysSet[index] = proy;
+              this.agregacampos(data);
+              this.dataStore.proysSet[index] = data;
               this._proysSet.next(Object.assign({}, this.dataStore).proysSet);
-              resolver(proy);     
+              resolver(data);     
             },
             error: error => reject(error.message)
           });
@@ -99,7 +112,17 @@ indexById(_id: string)
 
   refreshIndice(index:number, proy:Proy){
     this.refresh(proy).then(data=>{
+      this.agregacampos(data);
       this.dataStore.proysSet[index] = data
+    })
+  }
+
+  procesa(index:number, id:string){
+    this.http.put<Proy>(`proy/setproc/${id}`, null).subscribe({
+      next: data => {
+        this.agregacampos(data);
+        this.dataStore.proysSet[index] = data
+      }
     })
   }
 

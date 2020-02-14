@@ -61,4 +61,8 @@ export class MainContentComponent implements OnInit {
      this.proyService.refreshIndice(i, proy);
    }
 
+   procesa(id:string){
+     
+   }
+
 }
