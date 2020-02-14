@@ -61,8 +61,10 @@ export class MainContentComponent implements OnInit {
      this.proyService.refreshIndice(i, proy);
    }
 
-   procesa(id:string){
-     
+   procesa(index:number, id:string){
+     this.proyService.procesa(index, id, (err:any, res:Proy)=>{
+      this.openSnackBar(err.message, "Alerta");
+     });
    }
 
 }

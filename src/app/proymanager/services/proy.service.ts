@@ -117,12 +117,14 @@ indexById(_id: string)
     })
   }
 
-  procesa(index:number, id:string){
+  procesa(index:number, id:string, cb: (err:any, res:Proy)=>any){
     this.http.put<Proy>(`proy/setproc/${id}`, null).subscribe({
       next: data => {
         this.agregacampos(data);
-        this.dataStore.proysSet[index] = data
-      }
+        this.dataStore.proysSet[index] = data;
+        cb(null, data);
+      },
+      error: error => cb(error, null)
     })
   }
 
