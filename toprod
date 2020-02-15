@@ -1,0 +1,1 @@
+sudo cp dist/myxmls/* /var/www/html/ -r
