@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { MatDialog, MatSnackBarRef, SimpleSnackBar, MatSnackBar, MatDialogConfig } from '@angular/material';
 import { ProyService } from '../../services/proy.service';
 import { EditProyectoDialogComponent } from '../edit-proyecto-dialog/edit-proyecto-dialog.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-main-content',
@@ -18,7 +19,8 @@ export class MainContentComponent implements OnInit {
      private router: Router,
      private route: ActivatedRoute,
      private dialog:MatDialog,
-     private snackBar: MatSnackBar) { }
+     private snackBar: MatSnackBar,
+     private toastr: ToastrService) { }
 
   ngOnInit() {
     this.proysData = this.proyService.proysSet;
@@ -48,7 +50,7 @@ export class MainContentComponent implements OnInit {
 
   openSnackBar(message: string, action: string) : MatSnackBarRef<SimpleSnackBar> {
     return this.snackBar.open(message, action, {
-       duration: 2000,
+       duration: 10000,
      });
    }
    
@@ -59,6 +61,29 @@ export class MainContentComponent implements OnInit {
 
    refresh(i:number, proy:Proy){
      this.proyService.refreshIndice(i, proy);
+   }
+
+   procesa(index:number, id:string){
+     this.proyService.procesa(index, id, (err:any, res:Proy)=>{
+       if (err)
+        this.openSnackBar(err.message, "Alerta");
+     });
+   }
+
+   getexcel(proy:Proy){
+    this.proyService.download(proy, (err:any, res:any)=>{
+      if (err){
+        console.log(err.message);
+        this.toastr.error(err.message);
+        return;
+      }
+        const element = document.createElement('a');
+        element.href = URL.createObjectURL(res.image);
+        element.download = res.filename;
+        document.body.appendChild(element);
+        element.click();
+        this.toastr.success("Archivo descargado!");
+     });
    }
 
 }

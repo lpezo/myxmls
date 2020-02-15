@@ -8,13 +8,22 @@
       <mat-card-title>
         <mat-icon >folder_open</mat-icon> {{ proy.name }}
       </mat-card-title>
-      <mat-card-subtitle><span>{{ proy.created | date:'d/M/yyyy'}}</span><span>Archivos: {{ proy.total }}</span></mat-card-subtitle>
+      <mat-card-subtitle><span>{{ proy.created | date:'d/M/yyyy'}}</span>
+          <span> Archivos: {{ proy.total }}</span>
+        <span class="btn" [ngClass]="{
+          'btn-secondary':proy.status=='ok',
+          'btn-primary':proy.status=='proc',
+          'btn-warning':proy.status=='ver',
+          'btn-danger':proy.status=='fin'}" style="width:100px;"> {{proy.estado}}</span>
+      </mat-card-subtitle>
 
       <div fxFlex></div>
-      <button mat-button (click)="__cardClick(proy)"> <mat-icon>cloud_upload</mat-icon></button>
-      <button mat-button (click)="refresh(i, proy)"> <mat-icon>cached</mat-icon></button>
-      <button mat-button color="primary" (click)="openProyectoDialog(i, proy)" ><mat-icon>edit</mat-icon></button>
-     <button mat-button (click)="deleteItem(i, proy._id)"><mat-icon>delete</mat-icon></button>
+      <button mat-button *ngIf="proy.status=='ok' || proy.status=='fin'" (click)="__cardClick(proy)" title="Suber Archivos XML"> <mat-icon>cloud_upload</mat-icon></button>
+      <button mat-button (click)="refresh(i, proy)" title="Reffrescar"> <mat-icon>cached</mat-icon></button>
+      <button mat-button *ngIf="proy.status=='ok'" color="primary" (click)="openProyectoDialog(i, proy)" title="Editar"><mat-icon>edit</mat-icon></button>
+      <button mat-button *ngIf="proy.status=='ok'" (click)="deleteItem(i, proy._id)" title="Eliminar"><mat-icon>delete</mat-icon></button>
+      <button mat-button *ngIf="proy.status=='ok' || proy.status=='fin'" (click)="procesa(i, proy._id)" title="Procesa"><mat-icon>directions_run</mat-icon></button>
+      <button mat-button *ngIf="proy.excel" (click)="getexcel(proy)" title="excel" title="Obtener Reporte Excel"><mat-icon>cloud_download</mat-icon></button>
       </mat-card-header>
     <hr>
   </mat-card>

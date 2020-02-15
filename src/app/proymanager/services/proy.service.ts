@@ -3,7 +3,7 @@ import { Proy } from '../models/proy';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-
+import { saveAs } from "file-saver";
 
 @Injectable({
   providedIn: 'root'
@@ -31,11 +31,25 @@ export class ProyService {
   getJSON() {
     return this.http.post<Proy[]>('proy/list', {user: localStorage.getItem('idUser')})
     .subscribe(data =>{
+          for (let item of data){
+            this.agregacampos(item);
+          }
           this.dataStore.proysSet = data;
           this._proysSet.next(Object.assign({}, this.dataStore).proysSet);
       }), catchError(error => {
           return throwError('Unable to fetch proys set!');
       });
+  }
+
+  agregacampos(item:Proy){
+    if (item.status == 'proc')
+      item.estado = 'procesando';
+    else if (item.status == 'ver')
+      item.estado = 'verificando';
+    else if (item.status == "ok")
+      item.estado = "pendiente";
+    else
+      item.estado = item.status
   }
 
 proyById(_id : string){
@@ -65,11 +79,12 @@ indexById(_id: string)
 
   update(index:number, proy: Proy): Promise<Proy> {
     return new Promise((resolver,reject) =>{
-          this.http.put(`proy/upd`, proy).subscribe({
+          this.http.put<Proy>(`proy/upd`, proy).subscribe({
             next: data => {
-              this.dataStore.proysSet[index] = proy;
+              this.agregacampos(data);
+              this.dataStore.proysSet[index] = data;
               this._proysSet.next(Object.assign({}, this.dataStore).proysSet);
-              resolver(proy);     
+              resolver(data);     
             },
             error: error => reject(error.message)
           });
@@ -90,7 +105,7 @@ indexById(_id: string)
 
   refresh(proy: Proy) : Promise<Proy> {
     return new Promise((resolve,reject) => {
-      this.http.post('proy/refresh/' + proy._id, {}).subscribe({
+      this.http.get('proy/refresh/' + proy._id, {}).subscribe({
         next: data => resolve(data as Proy),
         error: error => reject(error)
       })
@@ -99,8 +114,35 @@ indexById(_id: string)
 
   refreshIndice(index:number, proy:Proy){
     this.refresh(proy).then(data=>{
+      this.agregacampos(data);
       this.dataStore.proysSet[index] = data
     })
   }
+
+  procesa(index:number, id:string, cb: (err:any, res:Proy)=>any){
+    this.http.put<Proy>(`proy/setproc/${id}`, null).subscribe({
+      next: data => {
+        this.agregacampos(data);
+        this.dataStore.proysSet[index] = data;
+        cb(null, data);
+      },
+      error: error => cb(error, null)
+    })
+  }
+
+  download(proy:Proy, cb: (err:any, reponse)=>any) {
+       this.http.get(`proy/excel/${proy._id}`,  {observe: 'response', responseType: 'blob'}).subscribe ({
+        next: res => {
+                      let data = {
+                         image: new Blob([res.body], {type: res.headers.get('Content-Type')}),
+                         filename: proy.name
+                      };
+                      cb(null, data);
+                    },
+        error: error=> {
+          cb(error, null);
+        }
+      })
+    }
 
 }
