@@ -3,7 +3,7 @@ import { Proy } from '../models/proy';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-
+import { saveAs } from "file-saver";
 
 @Injectable({
   providedIn: 'root'
@@ -46,6 +46,8 @@ export class ProyService {
       item.estado = 'procesando';
     else if (item.status == 'ver')
       item.estado = 'verificando';
+    else if (item.status == "ok")
+      item.estado = "pendiente";
     else
       item.estado = item.status
   }
@@ -103,7 +105,7 @@ indexById(_id: string)
 
   refresh(proy: Proy) : Promise<Proy> {
     return new Promise((resolve,reject) => {
-      this.http.post('proy/refresh/' + proy._id, {}).subscribe({
+      this.http.get('proy/refresh/' + proy._id, {}).subscribe({
         next: data => resolve(data as Proy),
         error: error => reject(error)
       })
@@ -127,5 +129,20 @@ indexById(_id: string)
       error: error => cb(error, null)
     })
   }
+
+  download(proy:Proy, cb: (err:any, reponse)=>any) {
+       this.http.get(`proy/excel/${proy._id}`,  {observe: 'response', responseType: 'blob'}).subscribe ({
+        next: res => {
+                      let data = {
+                         image: new Blob([res.body], {type: res.headers.get('Content-Type')}),
+                         filename: proy.name
+                      };
+                      cb(null, data);
+                    },
+        error: error=> {
+          cb(error, null);
+        }
+      })
+    }
 
 }
