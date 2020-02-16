@@ -23,7 +23,7 @@
       <button mat-button *ngIf="proy.status=='ok'" color="primary" (click)="openProyectoDialog(i, proy)" title="Editar"><mat-icon>edit</mat-icon></button>
       <button mat-button *ngIf="proy.status=='ok'" (click)="deleteItem(i, proy._id)" title="Eliminar"><mat-icon>delete</mat-icon></button>
       <button mat-button *ngIf="proy.status=='ok' || proy.status=='fin'" (click)="procesa(i, proy._id)" title="Procesa"><mat-icon>directions_run</mat-icon></button>
-      <button mat-button *ngIf="proy.excel" (click)="getexcel(proy)" title="excel" title="Obtener Reporte Excel"><mat-icon>cloud_download</mat-icon></button>
+      <button mat-button *ngIf="proy.excel" (click)="getexcel(proy)" title="excel" title="Obtener Reporte Excel" style="color:blue;"><mat-icon>cloud_download</mat-icon></button>
       </mat-card-header>
     <hr>
   </mat-card>

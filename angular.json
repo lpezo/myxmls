@@ -28,7 +28,8 @@
               "src/assets/proyData.json",
               "src/assets/upload_cloud.png",
               "src/assets/file_xml.png",
-              "src/assets/file_delete.png"
+              "src/assets/file_delete.png",
+              "src/assets/excel32.jpg"
             ],
             "styles": [
               "src/styles.scss",
