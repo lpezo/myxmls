@@ -119,8 +119,9 @@ indexById(_id: string)
     })
   }
 
-  procesa(index:number, id:string, cb: (err:any, res:Proy)=>any){
+  procesa({ index, id, cb }: { index: number; id: string; cb: (err: any, res: Proy) => any; }){
     this.http.put<Proy>(`proy/setproc/${id}`, null).subscribe({
+      //this.http.post<Proy>(`proy/tick`, null).subscribe({
       next: data => {
         this.agregacampos(data);
         this.dataStore.proysSet[index] = data;

@@ -64,10 +64,12 @@ export class MainContentComponent implements OnInit {
    }
 
    procesa(index:number, id:string){
-     this.proyService.procesa(index, id, (err:any, res:Proy)=>{
-       if (err)
-        this.openSnackBar(err.message, "Alerta");
-     });
+     this.proyService.procesa({
+         index, id, cb: (err: any, res: Proy) => {
+           if (err)
+             this.openSnackBar(err.message, "Alerta");
+         }
+       });
    }
 
    getexcel(proy:Proy){
