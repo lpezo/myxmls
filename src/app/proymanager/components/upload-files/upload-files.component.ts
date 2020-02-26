@@ -84,6 +84,7 @@ export class UploadFilesComponent implements OnInit {
       if (index === this.files.length) {
         this.proyecto.progress = 100;
         this.refrescar();
+        this.backToHome();
         return;
       } 
       else if (this.cancelar) {
