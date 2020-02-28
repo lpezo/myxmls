@@ -152,10 +152,11 @@ indexById(_id: string)
     setupSocketConnection() {
       this.socket = io(environment.apiBaseUrl);
   
-      this.socket.on('my broadcast', (data: string) => {
+      this.socket.on('refresh', (data: string) => {
         console.log(data);
-        alert(data);
+        alert(data.proy);
       });
+      
     }
 
 }
