@@ -28,6 +28,7 @@ export class MainContentComponent implements OnInit {
     this.proysData.subscribe(data =>{
       console.log(data);
     });
+    this.proyService.setupSocketConnection();
   }
 
   __cardClick(proy){

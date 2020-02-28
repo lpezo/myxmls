@@ -3,7 +3,8 @@ import { Proy } from '../models/proy';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { saveAs } from "file-saver";
+import * as io from 'socket.io-client';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,8 @@ import { saveAs } from "file-saver";
 export class ProyService {
 
    private _proysSet: BehaviorSubject<Proy[]>;
+
+   socket;
 
   private dataStore: {
      proysSet: Proy[]
@@ -144,6 +147,15 @@ indexById(_id: string)
           cb(error, null);
         }
       })
+    }
+
+    setupSocketConnection() {
+      this.socket = io(environment.apiBaseUrl);
+  
+      this.socket.on('my broadcast', (data: string) => {
+        console.log(data);
+        alert(data);
+      });
     }
 
 }
