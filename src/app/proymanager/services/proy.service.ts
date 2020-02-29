@@ -150,13 +150,20 @@ indexById(_id: string)
     }
 
     setupSocketConnection() {
+      console.log(environment.apiBaseUrl);
       this.socket = io(environment.apiBaseUrl);
-  
-      this.socket.on('refresh', (data: string) => {
+
+	this.socket.emit("messages", "Hola desde angular");
+
+      this.socket.on('refresh', (data: any) => {
         console.log(data);
         alert(data.proy);
       });
-      
+
+ 	 this.socket.on('error', function(err){
+	 	console.log(err);
+		});
+
     }
 
 }
