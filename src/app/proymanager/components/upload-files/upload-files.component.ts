@@ -109,7 +109,7 @@ export class UploadFilesComponent implements OnInit {
   }
 
 refrescar(){
-  this.proyectoService.refresh(this.proyecto).then(data=>{
+  this.proyectoService.refresh(this.proyecto._id).then(data=>{
     console.log('data:', data);
     this.proyecto.total = data.total;
   })

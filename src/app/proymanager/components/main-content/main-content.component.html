@@ -19,7 +19,7 @@
 
       <div fxFlex></div>
       <button mat-button *ngIf="proy.status=='ok' || proy.status=='fin'" (click)="__cardClick(proy)" title="Suber Archivos XML"> <mat-icon>cloud_upload</mat-icon></button>
-      <button mat-button (click)="refresh(i, proy)" title="Reffrescar"> <mat-icon>cached</mat-icon></button>
+      <!-- <button mat-button (click)="refresh(i, proy)" title="Refrescar"> <mat-icon>cached</mat-icon></button> -->
       <button mat-button *ngIf="proy.status=='ok'" color="primary" (click)="openProyectoDialog(i, proy)" title="Editar"><mat-icon>edit</mat-icon></button>
       <button mat-button *ngIf="proy.status=='ok'" (click)="deleteItem(i, proy._id)" title="Eliminar"><mat-icon>delete</mat-icon></button>
       <button mat-button *ngIf="proy.status=='ok' || proy.status=='fin'" (click)="procesa(i, proy._id)" title="Procesa"><mat-icon>directions_run</mat-icon></button>

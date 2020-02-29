@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Proy } from '../models/proy';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, find } from 'rxjs/operators';
 import * as io from 'socket.io-client';
 import { environment } from 'src/environments/environment';
 
@@ -106,9 +106,9 @@ indexById(_id: string)
     return this.http.post('proy/send', data);
   }
 
-  refresh(proy: Proy) : Promise<Proy> {
+  refresh(id: string) : Promise<Proy> {
     return new Promise((resolve,reject) => {
-      this.http.get('proy/refresh/' + proy._id, {}).subscribe({
+      this.http.get('proy/refresh/' + id, {}).subscribe({
         next: data => resolve(data as Proy),
         error: error => reject(error)
       })
@@ -116,7 +116,7 @@ indexById(_id: string)
   }
 
   refreshIndice(index:number, proy:Proy){
-    this.refresh(proy).then(data=>{
+    this.refresh(proy._id).then(data=>{
       this.agregacampos(data);
       this.dataStore.proysSet[index] = data
     })
@@ -153,11 +153,15 @@ indexById(_id: string)
       console.log(environment.apiBaseUrl);
       this.socket = io(environment.apiBaseUrl);
 
-	this.socket.emit("messages", "Hola desde angular");
+	    this.socket.emit("messages", "Hola desde angular");
 
       this.socket.on('refresh', (data: any) => {
         console.log(data);
-        alert(data.proy);
+        let index = this.dataStore.proysSet.findIndex(p => p._id == data.proy);
+        if (index >= 0){
+          console.log('refresca ', index);
+          this.refreshIndice(index, this.dataStore.proysSet[index]);
+        }
       });
 
  	 this.socket.on('error', function(err){
