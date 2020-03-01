@@ -156,11 +156,13 @@ indexById(_id: string)
 	    this.socket.emit("messages", "Hola desde angular");
 
       this.socket.on('refresh', (data: any) => {
-        console.log(data);
-        let index = this.dataStore.proysSet.findIndex(p => p._id == data.proy);
-        if (index >= 0){
-          console.log('refresca ', index);
-          this.refreshIndice(index, this.dataStore.proysSet[index]);
+        if (data.user == localStorage.getItem('idUser')){
+          console.log(data);
+          let index = this.dataStore.proysSet.findIndex(p => p._id == data.proy);
+          if (index >= 0){
+            console.log('refresca ', index);
+            this.refreshIndice(index, this.dataStore.proysSet[index]);
+          }
         }
       });
 

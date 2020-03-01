@@ -5,14 +5,20 @@
     [opened]="!isScreenSmall()"
     [mode]="isScreenSmall() ? 'over' : 'side'"
   >
-    <mat-toolbar color="primary">Menus</mat-toolbar>
+    <mat-toolbar color="primary">Menú</mat-toolbar>
      <mat-nav-list>
       <mat-list-item>
           <a matLine [routerLink]="['/proyecto']"> <mat-icon>home</mat-icon> Extrae y Valida XML </a>
       </mat-list-item>
+
+      <mat-list-item *ngIf="user.isAdmin">
+        <a matLine [routerLink]="['/register']"> <mat-icon>person_add</mat-icon> Registro</a>
+      </mat-list-item>
+
       <mat-list-item>
         <a matLine (click)="logout()"> <mat-icon>exit_to_app</mat-icon> Salir </a>
       </mat-list-item>
+
     </mat-nav-list>
     <div class="copyright-container">
       <span>Bienvenido {{user.firstName}} {{user.lastName}}<br>{{user.email}}</span>
