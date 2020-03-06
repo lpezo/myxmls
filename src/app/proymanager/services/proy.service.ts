@@ -137,9 +137,12 @@ indexById(_id: string)
   download(proy:Proy, cb: (err:any, reponse)=>any) {
        this.http.get(`proy/excel/${proy._id}`,  {observe: 'response', responseType: 'blob'}).subscribe ({
         next: res => {
+                      let namezip = proy.filename;
+                      if (!proy.filename)
+                        namezip = proy.name.replace('.', '_');
                       let data = {
                          image: new Blob([res.body], {type: res.headers.get('Content-Type')}),
-                         filename: proy.name
+                         filename: namezip
                       };
                       cb(null, data);
                     },
