@@ -1,1 +1,1 @@
-sudo cp dist/myxmls/* /var/www/html/ -r
+sudo cp dist/myxmls/* /var/www/myxmls/ -r

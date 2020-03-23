@@ -44,6 +44,11 @@
     </div>
 
     <div class="form-group">
+        <label for="isAdmin">¿Es Admin?</label>
+        <input type="checkbox" formControlName="isAdmin" style="margin-left: 20px;" [ngClass]="{ 'is-invalid': submitted && fval.isAdmin.errors }" />
+    </div>  
+
+    <div class="form-group">
         <button [disabled]="loading" class="btn btn-primary">
             <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
             Registre

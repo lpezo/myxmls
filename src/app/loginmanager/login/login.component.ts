@@ -14,6 +14,7 @@ export class LoginComponent implements OnInit {
   loading = false;
   submitted = false;
   returnUrl: string;
+  existsadmin = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -28,6 +29,16 @@ export class LoginComponent implements OnInit {
       email: ['', Validators.required],
       password: ['', Validators.required]
     });
+
+    this.authenticationService.getIsAdmin().subscribe(
+      data => {
+        this.existsadmin = data.result;
+      },
+      error => {
+        this.toastr.error(error.error.message, 'Error');
+          this.loading = false;
+      }
+    );
 
   }
 

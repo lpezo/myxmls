@@ -39,4 +39,8 @@ export class AuthenticationService {
         localStorage.removeItem('idUser');
         this.currentUserSubject.next(null);
     }
+
+    getIsAdmin() {
+        return this.http.get<any>(`auth/existsadmin`);
+    }
 }
